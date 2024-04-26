@@ -1,0 +1,90 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+public class HorseRaceGUI extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Horse Racing Simulator");
+
+        // Grid pane layout for organizing elements
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setVgap(10);
+        grid.setHgap(10);
+
+        // Track design section
+        Label trackLabel = new Label("Track Design");
+        GridPane.setConstraints(trackLabel, 0, 0);
+
+        Label lengthLabel = new Label("Track Length:");
+        GridPane.setConstraints(lengthLabel, 0, 1);
+        TextField lengthField = new TextField();
+        lengthField.setPromptText("Enter length in meters");
+        GridPane.setConstraints(lengthField, 1, 1);
+
+        Label tracksLabel = new Label("Number of Tracks:");
+        GridPane.setConstraints(tracksLabel, 0, 2);
+        TextField tracksField = new TextField();
+        tracksField.setPromptText("Enter number of tracks");
+        GridPane.setConstraints(tracksField, 1, 2);
+
+        Button createTrackButton = new Button("Create Track");
+        GridPane.setConstraints(createTrackButton, 1, 3);
+
+        // Horse customization section
+        Label horseLabel = new Label("Horse Customization");
+        GridPane.setConstraints(horseLabel, 0, 4);
+
+        Label nameLabel = new Label("Horse Name:");
+        GridPane.setConstraints(nameLabel, 0, 5);
+        TextField nameField = new TextField();
+        nameField.setPromptText("Enter horse name");
+        GridPane.setConstraints(nameField, 1, 5);
+
+        Label breedLabel = new Label("Horse Breed:");
+        GridPane.setConstraints(breedLabel, 0, 6);
+        ComboBox<String> breedComboBox = new ComboBox<>();
+        breedComboBox.getItems().addAll("Thoroughbred", "Quarter Horse", "Arabian", "Appaloosa");
+        breedComboBox.setPromptText("Select horse breed");
+        GridPane.setConstraints(breedComboBox, 1, 6);
+
+        Button customizeButton = new Button("Customize Horse");
+        GridPane.setConstraints(customizeButton, 1, 7);
+
+        // Add elements to grid
+        grid.getChildren().addAll(
+                trackLabel, lengthLabel, lengthField, tracksLabel, tracksField, createTrackButton,
+                horseLabel, nameLabel, nameField, breedLabel, breedComboBox, customizeButton
+        );
+
+        // Event handling for creating track
+        createTrackButton.setOnAction(e -> {
+            int length = Integer.parseInt(lengthField.getText());
+            int numTracks = Integer.parseInt(tracksField.getText());
+            // Implement track creation logic here
+            System.out.println("Track created with length: " + length + " meters and " + numTracks + " tracks.");
+        });
+
+        // Event handling for customizing horse
+        customizeButton.setOnAction(e -> {
+            String name = nameField.getText();
+            String breed = breedComboBox.getValue();
+            // Implement horse customization logic here
+            System.out.println("Horse customized: Name - " + name + ", Breed - " + breed);
+        });
+
+        Scene scene = new Scene(grid, 400, 300);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
